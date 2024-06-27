@@ -10,14 +10,12 @@
         {
             set
             {
-                if (value >= 0)
+                if (value < 0)
                 {
-                    _LigneDeCredit = value;
+                    throw new Exception("Ligne de crédit négative");
                 }
-                else
-                {
-                    throw new Exception();
-                }
+
+                _LigneDeCredit = value;
             }
 
             get { return _LigneDeCredit; }
