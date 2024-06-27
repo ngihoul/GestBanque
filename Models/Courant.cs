@@ -26,7 +26,7 @@
 
         public void Retrait(double Montant)
         {
-            if (Montant > 0 && Montant <= Solde)
+            if (Montant > 0 && Montant <= Solde + LigneDeCredit)
             {
                 Solde -= Montant;
             }
