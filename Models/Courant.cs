@@ -22,28 +22,31 @@
         }
         public Personne Titulaire { get; set; }
 
-        public void Retrait(double Montant)
+        private double SoldeDisponible { get { return Solde + LigneDeCredit; } }
+
+        public void Retrait(double montant)
         {
-            if (Montant > 0 && Montant <= Solde + LigneDeCredit)
+            if (montant <= 0)
             {
-                Solde -= Montant;
+                throw new Exception("Retrait négatif ou nul impossible");
             }
-            else
+
+            if (montant > SoldeDisponible)
             {
-                throw new Exception();
+                throw new Exception("Solde insuffisant");
             }
+
+            Solde -= montant;
         }
 
-        public void Depot(double Montant)
+        public void Depot(double montant)
         {
-            if (Montant > 0)
+            if (montant >= 0)
             {
-                Solde += Montant;
+                throw new Exception("Dépot négatif ou nul impossible");
             }
-            else
-            {
-                throw new Exception();
-            }
+
+            Solde += montant;
         }
     }
 }
