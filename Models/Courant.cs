@@ -1,36 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Models
+﻿namespace Models
 {
     public class Courant
     {
         public string Numero { get; set; }
         public double Solde { get; private set; }
+
+        private double _LigneDeCredit;
         public double LigneDeCredit
         {
             set
             {
                 if (value >= 0)
                 {
-                    LigneDeCredit = value;
+                    _LigneDeCredit = value;
                 }
                 else
                 {
                     throw new Exception();
                 }
-
             }
+
+            get { return _LigneDeCredit; }
         }
         public Personne Titulaire { get; set; }
 
         public void Retrait(double Montant)
         {
-            Solde = Montant > 0 ? Solde -= Montant : throw new Exception();
+            if (Montant > 0)
+            {
+                Solde -= Montant;
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public void Depot(double Montant)
