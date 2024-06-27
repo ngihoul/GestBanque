@@ -2,6 +2,7 @@
 {
     public class Courant
     {
+        #region Props
         public string Numero { get; set; }
         public double Solde { get; private set; }
 
@@ -23,7 +24,9 @@
         public Personne Titulaire { get; set; }
 
         private double SoldeDisponible { get { return Solde + LigneDeCredit; } }
+        #endregion
 
+        #region Methods
         public void Retrait(double montant)
         {
             if (montant <= 0)
@@ -48,5 +51,6 @@
 
             Solde += montant;
         }
+        #endregion
     }
 }
