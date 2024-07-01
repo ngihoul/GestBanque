@@ -12,7 +12,9 @@
                 return c;
             }
         }
-
+        /// <summary>
+        ///    Ajouter un compte courant au dictionnaire
+        /// </summary>
         public void Ajouter(Courant compte) {
             _Comptes.Add(compte.Numero, compte);
         }
