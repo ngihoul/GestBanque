@@ -43,4 +43,3 @@ b.Ajouter(c2);
 b.Ajouter(c3);
 
 Console.WriteLine(b["BE01 0002 0003 0004"].Titulaire.Nom);
-
