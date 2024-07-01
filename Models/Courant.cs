@@ -44,7 +44,7 @@
 
         public void Depot(double montant)
         {
-            if (montant >= 0)
+            if (montant <= 0)
             {
                 throw new Exception("Dépot négatif ou nul impossible");
             }
