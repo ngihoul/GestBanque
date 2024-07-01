@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Models
+﻿namespace Models
 {
     public class Banque
     {
@@ -12,13 +6,10 @@ namespace Models
 
         public string Nom { get; set; }
 
-        public Courant this[string key] { 
+        public Courant this[string numero] { 
             get {
-                _Comptes.TryGetValue(key, out Courant c);
+                _Comptes.TryGetValue(numero, out Courant c);
                 return c;
-            }
-            set {
-                _Comptes[key] = value;
             }
         }
 
