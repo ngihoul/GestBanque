@@ -22,5 +22,19 @@
         public void Supprimer(string numero) {
             _Comptes.Remove(numero);
         }
+
+        public double AvoirDesComptes(Personne titulaire)
+        {
+            double avoir = 0;
+
+            foreach (var compte in _Comptes) {
+                if(titulaire == compte.Value.Titulaire)
+                {
+                    avoir = avoir + compte.Value.Solde;
+                }
+            }
+
+            return avoir;
+        }
     }
 }

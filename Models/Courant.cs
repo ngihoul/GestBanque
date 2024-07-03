@@ -52,5 +52,21 @@
             Solde += montant;
         }
         #endregion
+
+        #region Surcharge opérateurs
+        public static double operator +(Courant a, Courant b)
+        {
+            if (a.Solde < 0)
+            {
+                return b.Solde;
+            }
+            else if (b.Solde < 0)
+            {
+                return a.Solde;
+            }
+
+            return a.Solde + b.Solde;
+        }
+        #endregion
     }
 }
