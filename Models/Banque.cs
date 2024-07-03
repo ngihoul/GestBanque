@@ -25,16 +25,19 @@
 
         public double AvoirDesComptes(Personne titulaire)
         {
-            double avoir = 0;
+            Courant temp = new Courant();
+            double result = 0;
 
-            foreach (var compte in _Comptes) {
+            foreach (KeyValuePair<string, Courant> compte in _Comptes) {
                 if(titulaire == compte.Value.Titulaire)
                 {
-                    avoir = avoir + compte.Value.Solde;
+                    double montant = temp + compte.Value;
+
+                    result += montant;
                 }
             }
 
-            return avoir;
+            return result;
         }
     }
 }
