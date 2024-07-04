@@ -1,12 +1,15 @@
 ﻿namespace Models
 {
-    public class Courant
+    public class Courant : Compte
     {
-        #region Props
-        public string Numero { get; set; }
-        public double Solde { get; private set; }
+        #region Champs
+        private const double TX_DEBITEUR = 9.75;
+        private const double TX_CREDITEUR = 3;
 
         private double _LigneDeCredit;
+        #endregion
+
+        #region Props
         public double LigneDeCredit
         {
             set
@@ -21,51 +24,14 @@
 
             get { return _LigneDeCredit; }
         }
-        public Personne Titulaire { get; set; }
-
-        private double SoldeDisponible { get { return Solde + LigneDeCredit; } }
+        protected override double SoldeDisponible { get { return Solde + LigneDeCredit; } }
         #endregion
 
-        #region Methods
-        public void Retrait(double montant)
+        #region Méthodes
+        protected override double CalculInteret()
         {
-            if (montant <= 0)
-            {
-                throw new Exception("Retrait négatif ou nul impossible");
-            }
-
-            if (montant > SoldeDisponible)
-            {
-                throw new Exception("Solde insuffisant");
-            }
-
-            Solde -= montant;
-        }
-
-        public void Depot(double montant)
-        {
-            if (montant <= 0)
-            {
-                throw new Exception("Dépot négatif ou nul impossible");
-            }
-
-            Solde += montant;
-        }
-        #endregion
-
-        #region Surcharge opérateurs
-        public static double operator +(Courant a, Courant b)
-        {
-            if (a.Solde < 0)
-            {
-                return b.Solde;
-            }
-            else if (b.Solde < 0)
-            {
-                return a.Solde;
-            }
-
-            return a.Solde + b.Solde;
+            double taux = Solde  >= 0 ? TX_CREDITEUR : TX_DEBITEUR;
+            return Solde * (taux / 100);
         }
         #endregion
     }
