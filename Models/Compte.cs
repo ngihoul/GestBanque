@@ -1,6 +1,8 @@
-﻿namespace Models
+﻿using Models.Interface;
+
+namespace Models
 {
-    public abstract class Compte
+    public abstract class Compte : IBanker, ICustomer
     {
         #region Props
         public string Numero { get; set; }

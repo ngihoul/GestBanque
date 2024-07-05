@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Interface;
 
 Personne p1 = new Personne()
 {
@@ -49,3 +50,9 @@ Console.WriteLine($"Solde C2 + C3 = {soldeC2C3}");
 // Test Avoir des comptes
 double avoirsP1 = b.AvoirDesComptes(p1);
 Console.WriteLine($"Avoirs de {p1.Nom} : {avoirsP1}");
+
+ICustomer customer = c1;
+customer.Depot(2000);
+customer.Retrait(1500);
+// On ne peut pas accéder au titulaire via l'interface ICustomer
+IBanker banker = c2;
