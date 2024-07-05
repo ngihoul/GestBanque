@@ -2,17 +2,19 @@
 {
     public class Courant : Compte
     {
-        #region Champs
+        #region Constantes
         private const double TX_DEBITEUR = 9.75;
         private const double TX_CREDITEUR = 3;
+        #endregion
 
+        #region Champs
         private double _LigneDeCredit;
         #endregion
 
         #region Props
         public double LigneDeCredit
         {
-            set
+            private set
             {
                 if (value < 0)
                 {
@@ -27,10 +29,25 @@
         protected override double SoldeDisponible { get { return Solde + LigneDeCredit; } }
         #endregion
 
+        #region Constructeurs
+        public Courant(string numero, Personne titulaire) : base(numero, titulaire)
+        {
+            LigneDeCredit = 0;
+        }
+        public Courant(string numero, Personne titulaire, double solde, double ligneDeCredit) : base(numero, titulaire, solde)
+        {
+            LigneDeCredit = ligneDeCredit;
+        }
+        public Courant(string numero, Personne titulaire, double ligneDeCredit) : base(numero, titulaire)
+        {
+            LigneDeCredit = ligneDeCredit;
+        }
+        #endregion
+
         #region Méthodes
         protected override double CalculInteret()
         {
-            double taux = Solde  >= 0 ? TX_CREDITEUR : TX_DEBITEUR;
+            double taux = Solde >= 0 ? TX_CREDITEUR : TX_DEBITEUR;
             return Solde * (taux / 100);
         }
         #endregion
