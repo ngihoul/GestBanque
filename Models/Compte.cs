@@ -1,4 +1,5 @@
-﻿using Models.Interface;
+﻿using Models.Exceptions;
+using Models.Interface;
 
 namespace Models
 {
@@ -37,12 +38,12 @@ namespace Models
         {
             if (montant <= 0)
             {
-                throw new Exception("Retrait négatif ou nul impossible");
+                throw new ArgumentOutOfRangeException(nameof(montant), "Retrait négatif ou nul impossible");
             }
 
             if (montant > SoldeDisponible)
             {
-                throw new Exception();
+                throw new SoldeInsuffisantException(this, montant);
             }
 
             Solde -= montant;
@@ -52,7 +53,7 @@ namespace Models
         {
             if (montant <= 0)
             {
-                throw new Exception("Dépot négatif ou nul impossible");
+                throw new ArgumentOutOfRangeException(nameof(montant),"Dépot négatif ou nul impossible");
             }
 
             Solde += montant;

@@ -18,7 +18,7 @@
             {
                 if (value < 0)
                 {
-                    throw new Exception("Ligne de crédit négative");
+                    throw new InvalidOperationException("Ligne de crédit négative");
                 }
 
                 _LigneDeCredit = value;
