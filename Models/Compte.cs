@@ -3,11 +3,16 @@ using Models.Interface;
 
 namespace Models
 {
+    public delegate void PassageEnNegatifDelegate(Compte compte);
     public abstract class Compte : IBanker, ICustomer
     {
+        #region Evènements
+        public event PassageEnNegatifDelegate? PassageEnNégatifEvent = null;
+        #endregion
+
         #region Props
         public string Numero { get; private set; }
-        public double Solde { get; private set; }
+        public virtual double Solde { get; private set; }
         public Personne Titulaire { get; private set; }
         protected virtual double SoldeDisponible
         {
@@ -34,6 +39,10 @@ namespace Models
         #endregion
 
         #region Méthodes
+        protected void SoldeNegatif()
+        {
+            PassageEnNégatifEvent?.Invoke(this);
+        }
         public virtual void Retrait(double montant)
         {
             if (montant <= 0)

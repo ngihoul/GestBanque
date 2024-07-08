@@ -2,10 +2,19 @@
 {
     public class Banque
     {
+        #region Event
+        public event PassageEnNegatifDelegate? PassageEnNegatifAction;
+        #endregion
+
+        #region Champs
         private Dictionary<string, Compte> _Comptes = new Dictionary<string, Compte>();
+        #endregion
 
+        #region Props
         public string Nom { get; set; }
+        #endregion
 
+        #region Méthodes
         public Compte? this[string numero] { 
             get {
                 foreach (KeyValuePair<string, Compte> kvp in _Comptes)
@@ -28,7 +37,14 @@
                 return;
             }
 
+            compte.PassageEnNégatifEvent += ComptePassageEnNégatifEvent;
+
             _Comptes.Add(compte.Numero, compte);
+        }
+
+        private void ComptePassageEnNégatifEvent(Compte compte)
+        {
+            Console.WriteLine("Le solde est en négatif");
         }
 
         public void Supprimer(string numero) {
@@ -60,5 +76,6 @@
 
             return result;
         }
+        #endregion
     }
 }

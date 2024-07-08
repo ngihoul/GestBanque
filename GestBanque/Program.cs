@@ -8,7 +8,7 @@ Courant c1 = new Courant("BE00 0001 0002 0003", p1);
 
 c1.Depot(2000);
 
-Courant c2 = new Courant("BE00 0004 0005 0006", p1);
+Courant c2 = new Courant("BE00 0004 0005 0006", p1, 2500);
 
 c2.Depot(5000);
 
@@ -81,4 +81,6 @@ catch (Exception e)
 {
     Console.WriteLine($"Erreur : {e.Message}");
 }
+
+c2.Retrait(6500);
 

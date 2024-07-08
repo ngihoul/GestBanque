@@ -42,6 +42,16 @@
         {
             LigneDeCredit = ligneDeCredit;
         }
+
+        public override void Retrait(double montant)
+        {
+            base.Retrait(montant);
+
+            if (Solde < 0)
+            {
+                SoldeNegatif();
+            }
+        }
         #endregion
 
         #region Méthodes
