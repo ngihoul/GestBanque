@@ -1,6 +1,7 @@
 ﻿using Models;
 using Models.Interface;
 using Models.Exceptions;
+using System.Threading.Channels;
 
 Personne p1 = new Personne("Bichette", "Bo", new DateTime(1991, 06, 05));
 
@@ -17,6 +18,13 @@ Courant c3 = new Courant("BE00 0002 0003 0004", p1, 1500);
 c3.Retrait(1000);
 
 Banque b = new Banque();
+
+// Abonnement aux notifications
+b.BanqueNotifEvent += (message) =>
+{
+    Console.WriteLine($"Notification : {message}");
+};
+
 b.Ajouter(c1);
 b.Ajouter(c2);
 b.Ajouter(c3);
@@ -83,4 +91,5 @@ catch (Exception e)
 }
 
 c2.Retrait(6500);
+
 

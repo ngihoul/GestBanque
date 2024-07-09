@@ -8,6 +8,11 @@ namespace Models
     {
         #region Evènements
         public event PassageEnNegatifDelegate? PassageEnNégatifEvent = null;
+
+        protected void PassageSoldeNegatif()
+        {
+            PassageEnNégatifEvent?.Invoke(this);
+        }
         #endregion
 
         #region Props
@@ -39,10 +44,6 @@ namespace Models
         #endregion
 
         #region Méthodes
-        protected void SoldeNegatif()
-        {
-            PassageEnNégatifEvent?.Invoke(this);
-        }
         public virtual void Retrait(double montant)
         {
             if (montant <= 0)

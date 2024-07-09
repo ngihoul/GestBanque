@@ -45,11 +45,13 @@
 
         public override void Retrait(double montant)
         {
+            bool soldeInitialPositif = Solde >= 0;
+
             base.Retrait(montant);
 
-            if (Solde < 0)
+            if (soldeInitialPositif && Solde < 0)
             {
-                SoldeNegatif();
+                PassageSoldeNegatif();
             }
         }
         #endregion

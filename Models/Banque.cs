@@ -3,7 +3,12 @@
     public class Banque
     {
         #region Event
-        public event PassageEnNegatifDelegate? PassageEnNegatifAction;
+        public event Action<string>? BanqueNotifEvent = null;
+
+        protected void DeclenchementBanqueNotifEvent(string message)
+        {
+            BanqueNotifEvent?.Invoke(message);
+        }
         #endregion
 
         #region Champs
@@ -28,31 +33,35 @@
             }
         }
         /// <summary>
-        ///    Ajouter un compte courant au dictionnaire
+        ///    Ajouter un compte au dictionnaire
         /// </summary>
         public void Ajouter(Courant compte) {
             if (this[compte.Numero] != null)
             {
-                Console.WriteLine($"Le compte numéro : {compte.Numero} existe déjà!!!");
+                DeclenchementBanqueNotifEvent($"Le compte numéro : {compte.Numero} existe déjà!!!");
                 return;
             }
 
-            compte.PassageEnNégatifEvent += ComptePassageEnNégatifEvent;
-
             _Comptes.Add(compte.Numero, compte);
+
+            // Abonnement à l'event
+            compte.PassageEnNégatifEvent += DetectionPassageEnNegatif;
         }
 
-        private void ComptePassageEnNégatifEvent(Compte compte)
+        private void DetectionPassageEnNegatif(Compte compte)
         {
-            Console.WriteLine("Le solde est en négatif");
+            DeclenchementBanqueNotifEvent($"Warning : le solde du compte {compte.Numero} est en négatif");
         }
 
         public void Supprimer(string numero) {
             if (!_Comptes.ContainsKey(numero))
             {
-                Console.WriteLine($"Le compte numéro : {numero} n'existe pas!!!");
+                DeclenchementBanqueNotifEvent($"Le compte numéro : {numero} n'existe pas!!!");
                 return;
             }
+
+            // Désabonnement à l'event
+            _Comptes[numero].PassageEnNégatifEvent -= DetectionPassageEnNegatif;
 
             _Comptes.Remove(numero);
         }
