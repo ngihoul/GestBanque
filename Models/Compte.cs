@@ -3,11 +3,10 @@ using Models.Interface;
 
 namespace Models
 {
-    public delegate void PassageEnNegatifDelegate(Compte compte);
     public abstract class Compte : IBanker, ICustomer
     {
         #region Evènements
-        public event PassageEnNegatifDelegate? PassageEnNégatifEvent = null;
+        public event Action<Compte>? PassageEnNégatifEvent = null;
 
         protected void PassageSoldeNegatif()
         {

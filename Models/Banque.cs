@@ -32,6 +32,7 @@
                 return null;
             }
         }
+
         /// <summary>
         ///    Ajouter un compte au dictionnaire
         /// </summary>

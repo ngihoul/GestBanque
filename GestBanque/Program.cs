@@ -1,7 +1,6 @@
 ﻿using Models;
 using Models.Interface;
 using Models.Exceptions;
-using System.Threading.Channels;
 
 Personne p1 = new Personne("Bichette", "Bo", new DateTime(1991, 06, 05));
 
@@ -26,7 +25,9 @@ b.BanqueNotifEvent += (message) =>
 };
 
 b.Ajouter(c1);
+b.Ajouter(c1);
 b.Ajouter(c2);
+b.Ajouter(c3);
 b.Ajouter(c3);
 
 Console.WriteLine(b["BE00 0002 0003 0004"]!.Titulaire.Nom);
